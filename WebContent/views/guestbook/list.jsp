@@ -1,9 +1,4 @@
-<%@page import="java.util.List"%>
-<%@page import="com.hanains.mysite.vo.GuestBookVo"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-	List<GuestBookVo> list = (List<GuestBookVo>) request.getAttribute("list");
-%>
 <!doctype html>
 <html>
 <head>
@@ -13,12 +8,19 @@
 </head>
 <body>
 	<div id="container">
-		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<!-- content -->
+		<div id="header">
+			<h1>MySite</h1>
+			<ul>
+				<li><a href="">로그인</a><li>
+				<li><a href="">회원가입</a><li>
+				<li><a href="">회원정보수정</a><li>
+				<li><a href="">로그아웃</a><li>
+				<li>님 안녕하세요 ^^;</li>
+			</ul>
+		</div>
 		<div id="content">
 			<div id="guestbook">
-				<form action="/mysite/gb" method="post">
+				<form action="/mysite/guestbook" method="post">
 					<input type="hidden" name="a" value="insert">
 					<table>
 						<tr>
@@ -35,36 +37,35 @@
 				</form>
 				<ul>
 					<li>
-						<%
-		int totalNum = list.size();
-		int index = 0;
-		for (GuestBookVo vo : list) {
-	%>
 						<table>
 							<tr>
-								<td><%=totalNum-index++%></td>
-								<td><%=vo.getName()%></td>
-								<td><%=vo.getReg_date()%></td>
-								<td><a href="/mysite/gb?a=form&no=<%=vo.getNo()%>">삭제</a></td>
+								<td>[4]</td>
+								<td>안대혁</td>
+								<td>2015-11-10 11:22:30</td>
+								<td><a href="">삭제</a></td>
 							</tr>
 							<tr>
 								<td colspan=4>
-<%=vo.getMessage().replaceAll("\n", "<br>") %>
+								안녕하세요. ^^;<br>
+								하하하하	
 								</td>
 							</tr>
 						</table>
-							<%
-		}
-	%>
 						<br>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<!-- navigation -->
-		<jsp:include page="/WEB-INF/views/include/navi.jsp"/>
-		<!-- footer -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
+		<div id="navigation">
+			<ul>
+				<li><a href="">안대혁</a></li>
+				<li><a href="">방명록</a></li>
+				<li><a href="">게시판</a></li>
+			</ul>
+		</div>
+		<div id="footer">
+			<p>(c)opyright 2014 </p>
+		</div>
 	</div>
 </body>
 </html>

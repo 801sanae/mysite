@@ -8,14 +8,20 @@
 </head>
 <body>
 	<div id="container">
-		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
-		<!-- content -->
+		<div id="header">
+			<h1>MySite</h1>
+			<ul>
+				<li><a href="">로그인</a><li>
+				<li><a href="">회원가입</a><li>
+				<li><a href="">회원정보수정</a><li>
+				<li><a href="">로그아웃</a><li>
+				<li>님 안녕하세요 ^^;</li>
+			</ul>
+		</div>
 		<div id="content">
 			<div id="user">
 
-				<form id="join-form" name="joinForm" method="GET" action="/mysite/user">
-					<input type="hidden" name="a" value="join">
+				<form id="join-form" name="joinForm" method="" action="">
 					<label class="block-label" for="name">이름</label>
 					<input id="name" name="name" type="text" value="">
 
@@ -43,10 +49,16 @@
 				</form>
 			</div>
 		</div>
-		<!-- navigation -->
-		<jsp:include page="/WEB-INF/views/include/navi.jsp"/>
-		<!-- footer -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"/>
+		<div id="navigation">
+			<ul>
+				<li><a href="">안대혁</a></li>
+				<li><a href="">방명록</a></li>
+				<li><a href="">게시판</a></li>
+			</ul>
+		</div>
+		<div id="footer">
+			<p>(c)opyright 2015</p>
+		</div>
 	</div>
 </body>
 </html>

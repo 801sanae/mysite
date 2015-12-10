@@ -10,6 +10,10 @@
 <%-- <%
 	List<GuestBookVo> list = (List<GuestBookVo>) request.getAttribute("list");
 %> --%>
+
+<%
+	pageContext.setAttribute("newLine", "\n");
+%>
 <!doctype html>
 <html>
 <head>
@@ -90,9 +94,13 @@
 					<table>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="name"></td>
+							<td>
+								<input type="text" name="name" value="${authUser.name }" >
+							</td>
 							<td>비밀번호</td>
-							<td><input type="password" name="pass"></td>
+							<td>
+								<input type="password" name="pass" value="${authUser.password }" >
+							</td>
 						</tr>
 						<tr>
 							<td colspan=4><textarea name="content" id="content"></textarea></td>
@@ -106,7 +114,6 @@
 					<li>
 						<c:set var="cnt" value="${fn:length(list)}" />
 						<c:set var="newLine" value="\n"/>
-						
 						<c:forEach items="${list }" var="vo" varStatus="status">
 						
 						<table>

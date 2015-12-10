@@ -10,8 +10,16 @@
 	<ul>
 
 		<li class="selected"><a href="main">김민영</a></li>
-		<li><a href="gb?a=list">방명록</a></li>
-		<li><a href="">게시판</a></li>
+		
+		<c:choose>
+		<c:when test="${!empty authUser }">
+			<li><a href="gb?a=list">방명록</a></li>		
+		</c:when>
+		<c:otherwise>
+			<li><a href="user?a=loginform">방명록</a></li>
+		</c:otherwise>
+		</c:choose>
+		<li><a href="board?a=list">게시판</a></li>
 		
 		<%-- 		
 		<c:choose>

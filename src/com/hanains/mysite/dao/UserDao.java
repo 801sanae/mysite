@@ -54,7 +54,7 @@ public class UserDao {
 			//4. execute SQL
 			rs = pstmt.executeQuery();
 			if( rs.next() ) {
-				Long no = rs.getLong( 1 );
+				int no = rs.getInt( 1 );
 				String name = rs.getString( 2 );
 				String email2 = rs.getString( 3 );
 				
@@ -63,6 +63,8 @@ public class UserDao {
 				vo.setName(name);
 				vo.setEmail(email2);
 			}
+			
+			System.out.println("::get() vo " + vo);
 			
 		} catch( SQLException ex ) {
 			System.out.println( "SQL Error:" + ex );

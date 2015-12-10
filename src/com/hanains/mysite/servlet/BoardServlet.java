@@ -9,25 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.hanains.http.action.Action;
 import com.hanains.http.action.ActionFactory;
-import com.hanains.mysite.http.action.main.MainActionFactory;
+import com.hanains.mysite.http.action.board.BoardActionFactory;
+import com.hanains.mysite.http.action.user.UserActionFactory;
 
-/**
- * Servlet implementation class MainServlet
- */
-@WebServlet("/main")
-public class MainServlet extends HttpServlet {
+@WebServlet("/board")
+public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 		
-		ActionFactory af = new MainActionFactory();
-		String actionName= request.getParameter("a");
+		ActionFactory actionFactory = new BoardActionFactory();
+		String actionName = request.getParameter("a");
 		
-		Action action = af.getAction(actionName);
+		Action action = actionFactory.getAction(actionName);
 		action.execute(request, response);
-		
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

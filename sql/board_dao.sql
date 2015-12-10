@@ -38,3 +38,6 @@ commit;
           member b
     where a.member_no = b.no
  order by a.reg_date desc;
+ 
+ --default select
+ select * from BOARD;

@@ -21,6 +21,9 @@ public class LoginAction implements Action {
 		
 		UserDao dao = new UserDao();
 		UserVo vo = dao.get(email, password);
+		vo.setPassword(password);
+		
+		System.out.println(":::vo"+vo);
 		
 		if(vo==null){
 			HttpUtil.redirect(response, "/mysite/user?a=loginform&result=fail");

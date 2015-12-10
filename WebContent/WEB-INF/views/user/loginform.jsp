@@ -1,7 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
+<%-- <%
 	String result = request.getParameter("result");
-%>
+%> --%>
 <!doctype html>
 <html>
 <head>
@@ -12,8 +17,11 @@
 </head>
 <body>
 	<div id="container">
+		
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+		<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
+		<c:import url="/WEB-INF/views/include/header.jsp"/>
+		
 		<!-- content -->
 		<div id="content">
 			<div id="user">
@@ -25,6 +33,14 @@
 					<label class="block-label">패스워드</label> <input name="password"	type="password" value=""> 
 					
 					<input type="submit" value="로그인">
+					
+					<c:if test="${param.result ne fail  }">
+						<p>로그인이 실패 했습니다.</p>
+					</c:if>
+					
+					
+					
+					<%-- 
 					<%
 						if ("fail".equals(result)) {
 					%>
@@ -33,14 +49,19 @@
 
 					<%
 						}
-					%>
+					%> 
+					--%>
 				</form>
 			</div>
 		</div>
 		<!-- navigation -->
-		<jsp:include page="/WEB-INF/views/include/navi.jsp" />
+		<%-- <jsp:include page="/WEB-INF/views/include/navi.jsp" /> --%>
+		<c:import url="/WEB-INF/views/include/navi.jsp">
+<%-- 			<c:param name="menu" value="main"></c:param> --%>
+		</c:import>
 		<!-- footer -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp" />
+		<%-- <jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
+		<c:import url="/WEB-INF/views/include/footer.jsp"/>
 	</div>
 </body>
 </html>

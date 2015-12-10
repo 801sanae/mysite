@@ -6,7 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<% pageContext.setAttribute("newLineChar", "\n"); %>
 
 <%-- <%
 	List<GuestBookVo> list = (List<GuestBookVo>) request.getAttribute("list");
@@ -21,11 +20,14 @@
 </head>
 <body>
 	<div id="container">
+	
 		<!-- header -->
 		<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
 		<c:import url="/WEB-INF/views/include/header.jsp"/>
 		
-<%-- 		<!-- content -->
+		
+<%-- 		
+	<!-- content -->
 		<div id="content">
 			<div id="guestbook">
 				<form action="/mysite/gb" method="post">
@@ -71,12 +73,15 @@
 					</li>
 				</ul>
 			</div>
-		</div> --%>
+		</div> 
+--%>
+
 		<!-- 
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		%%%%%%%%%%EL JSTL 적용%%%%%%%%%%
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		 -->
+		 
 		<!-- content -->
 		<div id="content">
 			<div id="guestbook">
@@ -100,6 +105,7 @@
 				<ul>
 					<li>
 						<c:set var="cnt" value="${fn:length(list)}" />
+						<c:set var="newLine" value="\n"/>
 						
 						<c:forEach items="${list }" var="vo" varStatus="status">
 						
@@ -113,7 +119,7 @@
 							<tr>
 								<td colspan=4>
 								<%-- <%=vo.getMessage().replaceAll("\n", "<br>")%> --%>
-${fn:replace(vo.message,'<br>', 'newLineChar')}
+								${fn:replace(vo.message,'<br>', 'newLine')}
 								<!-- ??????? -->
 								</td>
 							</tr>
@@ -125,11 +131,13 @@ ${fn:replace(vo.message,'<br>', 'newLineChar')}
 				</ul>
 			</div>
 		</div>
+		
 		<!-- navigation -->
 		<%-- <jsp:include page="/WEB-INF/views/include/navi.jsp" /> --%>
 		<c:import url="/WEB-INF/views/include/navi.jsp">
 <%-- 			<c:param name="menu" value="main"></c:param> --%>
 		</c:import>
+		
 		<!-- footer -->
 		<%-- <jsp:include page="/WEB-INF/views/include/footer.jsp" /> --%>
 		<c:import url="/WEB-INF/views/include/footer.jsp"/>

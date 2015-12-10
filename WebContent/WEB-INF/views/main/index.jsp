@@ -14,9 +14,11 @@
 </head>
 <body>
 	<div id="container">
+	
 		<!-- header -->
 		<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
 		<c:import url="/WEB-INF/views/include/header.jsp"/>
+		
 		<div id="wrapper">
 			<div id="content">
 				<div id="site-introduction">

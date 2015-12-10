@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!doctype html>
 <html>
 <head>
@@ -8,8 +13,11 @@
 </head>
 <body>
 	<div id="container">
+		
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp" />
+		<%-- <jsp:include page="/WEB-INF/views/include/header.jsp" /> --%>
+		<c:import url="/WEB-INF/views/include/header.jsp"/>
+		
 		<!-- content -->
 		<div id="content">
 			<div id="user">
@@ -20,6 +28,7 @@
 				</p>				
 			</div>
 		</div>
+		
 		<!-- navigation -->
 		<jsp:include page="/WEB-INF/views/include/navi.jsp"/>
 		<!-- footer -->

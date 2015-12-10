@@ -1,7 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
+<%-- <%
 	String no = request.getParameter("no");
-%>
+%> --%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!doctype html>
 <html>
 <head>
@@ -18,7 +23,7 @@
 			<div id="guestbook" class="delete-form">
 				<form method="post" action="/mysite/gb">
 					<input type="hidden" name="a" value="delete">
-					<input type='hidden' name="no" value="<%=no%>">
+					<input type='hidden' name="no" value="${param.no }">
 					<label>비밀번호</label>
 					<input type="password" name="password">
 					<input type="submit" value="확인">

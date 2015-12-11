@@ -33,10 +33,12 @@
 							<th>작성일</th>
 							<th>&nbsp;</th>
 						</tr>				
-				<c:forEach items="${list }" var = "vo">
+				<c:set var="cnt" value="${fn:length(list)}"/>
+				
+				<c:forEach items="${list }" var = "vo" varStatus="status">
 						<tr>
-							<td>3</td>
-							<td><a href="">${vo.title }</a></td>
+							<td>${cnt-status.index}</td>
+							<td><a href="board?a=view&no=${vo.no}">${vo.title }</a></td>
 							<td>${vo.userVo.name }</td>
 							<td>${vo.view_cnt }</td>
 							<td>${vo.reg_date}</td>

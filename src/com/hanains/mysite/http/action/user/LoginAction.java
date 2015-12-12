@@ -23,19 +23,17 @@ public class LoginAction implements Action {
 		UserVo vo = dao.get(email, password);
 		vo.setPassword(password);
 		
-		System.out.println(":::vo"+vo);
+		System.out.println(":::LoginAction = "+vo);
 		
-		if(vo==null){
+		if(vo==null)
 			HttpUtil.redirect(response, "/mysite/user?a=loginform&result=fail");
 //			HttpUtil.forwarding(request, response, "/WEB-INF/views/user/loginform_retry.jsp/");
-			return;
+		else{
+			//로그인 성공
+			HttpSession session = request.getSession(true);
+			session.setAttribute("authUser", vo);
+			
+			HttpUtil.redirect(response, "/mysite/main");
 		}
-		
-		//로그인 성공
-		HttpSession session = request.getSession(true);
-		session.setAttribute("authUser", vo);
-		
-		HttpUtil.redirect(response, "/mysite/main");
-		
 	}
 }

@@ -33,7 +33,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		UserVo vo = null;
+		UserVo vo = new UserVo();
 		
 		try{
 			//1. get Connection

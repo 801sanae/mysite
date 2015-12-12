@@ -41,3 +41,29 @@ commit;
  
  --default select
  select * from BOARD;
+ select * from member;
+ 
+ --delete
+ delete from board;
+ delete from member;
+  
+SELECT * FROM (
+     SELECT A.*, 
+                 ROWNUM AS RNUM,
+                 FLOOR((ROWNUM-1)/{디스플레이수}+1) AS PAGE,
+                 COUNT(*) OVER() AS TOTCNT FROM (
+          {검색쿼리 - 정렬이 필요할 경우 정렬조건 포함}
+    ) A
+) WHERE PAGE = {페이지번호};
+
+SELECT * 
+   FROM (
+               SELECT A.*, 
+                            ROWNUM AS RNUM,
+                            COUNT(*) OVER() AS TOTCNT 
+                  FROM (
+                               {검색쿼리 - 정렬이 필요할 경우 정렬조건 포함}
+                             ) A
+              ) 
+  WHERE RNUM > {범위부터} AND RNUM <= {범위까지};
+

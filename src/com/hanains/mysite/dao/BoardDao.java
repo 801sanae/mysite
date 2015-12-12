@@ -192,8 +192,7 @@ public class BoardDao {
 					+ "FROM board a, member b "
 					+ "WHERE a.member_no = b.no "
 					+ "ORDER BY a.reg_date desc";
-			
-			
+
 			rs = stmt.executeQuery(sql);
 			
 			while(rs.next()){
@@ -209,7 +208,9 @@ public class BoardDao {
 				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setMember_no(member_no);
+				vo.setMember_name(member_name);
 				vo.setView_cnt(view_cnt);
+				vo.setReg_date(reg_date);
 
 				list.add(vo);
 			}

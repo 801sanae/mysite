@@ -35,17 +35,27 @@
 						</tr>				
 				<c:set var="cnt" value="${fn:length(list)}"/>
 				
-				<c:forEach items="${list }" var = "vo" varStatus="status">
+				<c:forEach items="${list }" var = "board" varStatus="status">
 						<tr>
 							<td>${cnt-status.index}</td>
-							<td><a href="board?a=view&no=${vo.no}">${vo.title }</a></td>
-							<td>${vo.userVo.name }</td>
-							<td>${vo.view_cnt }</td>
-							<td>${vo.reg_date}</td>
-							<td><a href="" class="del">삭제</a></td>
+							<td><a href="board?a=view&no=${board.no}">${board.title }</a></td>
+							<td>${board.member_name }</td>
+							<td>${board.view_cnt }</td>
+							<td>${board.reg_date}</td>
+					<c:choose>
+						<c:when test="${!empty authUser }">
+							<td><a href="main?a=index" class="del">
+							<img src="/mysite/assets/images/recycle.jpg">
+							</a></td>
+						</c:when>
+						<c:otherwise>
+						<td></td>
+						</c:otherwise>
+					</c:choose>
 						</tr>
 				</c:forEach>						
 					</table>
+					
 				<div class="pager">
 					<ul>
 						<li class="pg-prev"><a href="#">◀ 이전</a></li>

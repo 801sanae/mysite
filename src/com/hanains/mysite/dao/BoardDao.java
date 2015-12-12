@@ -37,7 +37,7 @@ public class BoardDao {
 	}
 	
 	//TODO
-	public void insert(BoardVo boardVo){
+	public void insert(BoardVo board){
 		
 		System.out.println("::board Insert Start");
 		
@@ -53,9 +53,9 @@ public class BoardDao {
 		
 		pstmt = con.prepareStatement(sql);
 		
-		pstmt.setString(1, boardVo.getTitle());
-		pstmt.setString(2, boardVo.getContents());
-		pstmt.setLong(3, boardVo.getUserVo().getNo());
+		pstmt.setString(1, board.getTitle());
+		pstmt.setString(2, board.getContents());
+		pstmt.setLong(3, board.getUserVo().getNo());
 /*		pstmt.setInt(4, boardVo.getView_cnt());*/
 		pstmt.setInt(4, 1);
 		pstmt.executeQuery();
@@ -83,11 +83,47 @@ public class BoardDao {
 	public void delete(){}
 	
 	
-	public void modify(){
-		
+	//TODO
+	public void update(BoardVo vo){
+		System.out.println("::board update Start");		
+		try{
+			con = getConnection();
+			
+			String sql="update board set title=?, content=? where no="+vo.getNo();
+			
+			System.out.println("::"+sql);
+			
+			System.out.println(vo.getTitle()+"/"+vo.getContents());
+			
+			pstmt = con.prepareStatement(sql);
+			
+			//TODO
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContents());
+			
+			pstmt.executeQuery();
+			
+		}catch( SQLException ex ) {
+			System.out.println( "sql error:" + ex );
+			ex.printStackTrace();
+		} finally {
+			//5. clear resources
+			try{
+				if( pstmt != null ) {
+					pstmt.close();
+				}
+				if( con != null ) {
+					con.close();
+				}
+			} catch( SQLException ex ) {
+				ex.printStackTrace();
+			}
+		}
+		System.out.println("::board update finish");
 	}
 	//TODO
 	public BoardVo getView(int no){
+		System.out.println("::board getList Start");
 		BoardVo vo = null;
 		try{
 			con = getConnection();
@@ -95,8 +131,6 @@ public class BoardDao {
 			stmt = con.createStatement();
 			
 			String sql ="select no, title, content, member_no from board where no="+no;
-			
-			System.out.println(sql);
 			
 			rs = stmt.executeQuery(sql);
 			
@@ -159,7 +193,6 @@ public class BoardDao {
 					+ "WHERE a.member_no = b.no "
 					+ "ORDER BY a.reg_date desc";
 			
-//			System.out.println(":::sql= " + sql);
 			
 			rs = stmt.executeQuery(sql);
 			

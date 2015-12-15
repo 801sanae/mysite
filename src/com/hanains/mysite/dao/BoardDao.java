@@ -47,7 +47,7 @@ public class BoardDao {
 		String sql = 
 				"insert "+
 				"into board "+
-				"values (board_no_seq.nextval,?,?,?,?,SYSDATE)";
+				"values (board_no_seq.nextval,?,?,?,?,SYSDATE, board_no_seq.CURRVAL, ?, ?)";
 		
 		System.out.println("::sql = " + sql);
 		
@@ -58,6 +58,9 @@ public class BoardDao {
 		pstmt.setLong(3, board.getUserVo().getNo());
 /*		pstmt.setInt(4, boardVo.getView_cnt());*/
 		pstmt.setInt(4, 1);
+		pstmt.setInt(5, board.getOrder_no());
+		pstmt.setInt(6, board.getDepth());
+		
 		pstmt.executeQuery();
 		
 		} catch( SQLException ex ) {
@@ -123,7 +126,7 @@ public class BoardDao {
 	}
 	//TODO
 	public BoardVo getView(int no){
-		System.out.println("::board getList Start");
+		System.out.println("::board getView Start");
 		BoardVo vo = null;
 		try{
 			con = getConnection();
@@ -166,7 +169,7 @@ public class BoardDao {
 			}
 		}
 		
-		System.out.println("::board getList Finish");
+		System.out.println("::board getView Finish");
 		
 		return vo;
 	}
@@ -215,7 +218,6 @@ public class BoardDao {
 				list.add(vo);
 			}
 			
-			System.out.println("::"+list);
 		
 		}catch( SQLException ex ) {
 			System.out.println( "sql error:" + ex );
@@ -235,6 +237,71 @@ public class BoardDao {
 		}
 		
 		System.out.println("::board getList Finish");
+		
+		return list;
+	}
+
+	
+	//TODO
+	public List<BoardVo> getSearch(String kwd) {
+		System.out.println("::board getSearch Start");
+		
+		List<BoardVo> list = new ArrayList<BoardVo>();
+		
+		try{
+			con = getConnection();
+		
+			String sql = "SELECT "
+						+ "b.no, b.title, b.member_no, m.name as memberName, b.view_cnt, b.reg_date "
+						+ "FROM board b ,member m "
+						+ "WHERE b.member_no = m.no "
+						+ "AND b.title LIKE ? "; 
+				
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, "%"+kwd+"%");
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				int no = rs.getInt(1);
+				String title = rs.getString(2);
+				int member_no = rs.getInt(3);
+				String member_name = rs.getString(4);
+				int view_cnt = rs.getInt(5);
+				String reg_date = rs.getString(6);
+				
+				BoardVo vo = new BoardVo();
+				
+				vo.setNo(no);
+				vo.setTitle(title);
+				vo.setMember_no(member_no);
+				vo.setMember_name(member_name);
+				vo.setView_cnt(view_cnt);
+				vo.setReg_date(reg_date);
+
+				list.add(vo);
+			}
+			
+		} catch( SQLException ex ) {
+			System.out.println( "sql error:" + ex );
+			ex.printStackTrace();
+		} finally {
+			//5. clear resources
+			try{
+				if( pstmt != null ) {
+					pstmt.close();
+				}
+				if( con != null ) {
+					con.close();
+				}
+			} catch( SQLException ex ) {
+				ex.printStackTrace();
+			}
+		}
+		
+		System.out.println("::board getSearch Finish");
 		
 		return list;
 	}

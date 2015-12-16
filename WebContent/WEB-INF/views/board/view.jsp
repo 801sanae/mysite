@@ -37,10 +37,12 @@
 					</tr>
 				</table>
 				<div class="bottom">
+					
 					<a href="board?a=list">글목록</a>
 					<c:choose>
 						<c:when test="${!empty authUser }">
 							<a href="board?a=updateform&no=${board.no}">글수정</a>
+							<a href="board?a=writeform&no=${board.no}&group_no=${board.group_no }&order_no=${board.order_no}&depth=${board.depth } ">댓글</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

@@ -16,7 +16,23 @@ public class BoardInsertFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpUtil.forwarding(request, response, "/WEB-INF/views/board/write.jsp");
+
+		int group_no=Integer.parseInt(request.getParameter("group_no"));
+		int order_no=Integer.parseInt(request.getParameter("order_no"));
+		int depth=Integer.parseInt(request.getParameter("depth"));
+		
+		BoardDao dao = new BoardDao();
+		BoardVo board= new BoardVo();
+		
+		System.out.println(group_no+":"+order_no+":"+depth);
+		
+		board.setGroup_no(group_no);
+		board.setOrder_no(order_no);
+		board.setDepth(depth);
+		
+		request.setAttribute("board", board);
+		
+		HttpUtil.forwarding(request, response, "/WEB-INF/views/board/write.jsp");		
 	}
 
 }

@@ -36,7 +36,6 @@ public class BoardDao {
 		return connection;
 	}
 	
-	//TODO
 	public void insert(BoardVo board){
 		
 		System.out.println("::board Insert Start");
@@ -44,24 +43,44 @@ public class BoardDao {
 		try{
 		con = getConnection();
 		
-		String sql = 
-				"insert "+
-				"into board "+
-				"values (board_no_seq.nextval,?,?,?,?,SYSDATE, board_no_seq.CURRVAL, ?, ?)";
-		
-		System.out.println("::sql = " + sql);
-		
-		pstmt = con.prepareStatement(sql);
-		
-		pstmt.setString(1, board.getTitle());
-		pstmt.setString(2, board.getContents());
-		pstmt.setLong(3, board.getUserVo().getNo());
-/*		pstmt.setInt(4, boardVo.getView_cnt());*/
-		pstmt.setInt(4, 1);
-		pstmt.setInt(5, board.getOrder_no());
-		pstmt.setInt(6, board.getDepth());
-		
-		pstmt.executeQuery();
+		if(board.getGroup_no()==0){
+			String sql = 
+					"insert "+
+					"into board "+
+					"values (board_no_seq.nextval,?,?,?,?,SYSDATE, board_no_seq.CURRVAL, ?, ?)";
+			System.out.println("::sql = " + sql);
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContents());
+			pstmt.setLong(3, board.getUserVo().getNo());
+			pstmt.setInt(4, 1);
+			
+			pstmt.setInt(5, 1);//orderno
+			pstmt.setInt(6, board.getDepth());//depth
+			
+			pstmt.executeQuery();
+		}else{
+			String sql =
+					"INSERT INTO board" +
+					" VALUES (BOARD_NO_SEQ.nextVAL,?,?,?,?, SYSDATE,?, nvl((SELECT MAX(order_no) FROM BOARD),0)+1,?)";
+			
+			System.out.println("::sql = " + sql);
+			
+			//no, title, content memberno, cnt regdate,groupno,orderno,depth
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContents());
+			pstmt.setLong(3, board.getUserVo().getNo());
+			pstmt.setInt(4, 0);
+			pstmt.setInt(5, board.getGroup_no());
+			pstmt.setInt(6, board.getDepth()+1);//depth
+			
+			pstmt.executeQuery();
+			
+		}
 		
 		} catch( SQLException ex ) {
 			System.out.println( "sql error:" + ex );
@@ -82,11 +101,12 @@ public class BoardDao {
 		
 		System.out.println("::board Insert Finish");
 	}
-	//TODO
+	
+	
+
 	public void delete(){}
 	
 	
-	//TODO
 	public void update(BoardVo vo){
 		System.out.println("::board update Start");		
 		try{
@@ -100,7 +120,6 @@ public class BoardDao {
 			
 			pstmt = con.prepareStatement(sql);
 			
-			//TODO
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
 			
@@ -124,8 +143,9 @@ public class BoardDao {
 		}
 		System.out.println("::board update finish");
 	}
-	//TODO
+	
 	public BoardVo getView(int no){
+		
 		System.out.println("::board getView Start");
 		BoardVo vo = null;
 		try{
@@ -133,7 +153,9 @@ public class BoardDao {
 			
 			stmt = con.createStatement();
 			
-			String sql ="select no, title, content, member_no from board where no="+no;
+			String sql ="select no, title, content, member_no, reg_date, "
+					+ "group_no, order_no, depth "
+					+ "from board where no="+no;
 			
 			rs = stmt.executeQuery(sql);
 			
@@ -142,6 +164,10 @@ public class BoardDao {
 				String title = rs.getString(2);
 				String content = rs.getString(3);
 				int member_no = rs.getInt(4);
+				String reg_date = rs.getString(5);
+				int group_no = rs.getInt(6);
+				int order_no = rs.getInt(7);
+				int depth = rs.getInt(8);
 				
 				vo = new BoardVo();
 				
@@ -149,7 +175,10 @@ public class BoardDao {
 				vo.setTitle(title);
 				vo.setContents(content);
 				vo.setMember_no(member_no);
-
+				vo.setReg_date(reg_date);
+				vo.setGroup_no(group_no);
+				vo.setOrder_no(order_no);
+				vo.setDepth(depth);
 			}
 			
 		}catch( SQLException ex ) {
@@ -174,7 +203,6 @@ public class BoardDao {
 		return vo;
 	}
 	
-	//TODO
 	public List<BoardVo> getList(){
 		System.out.println("::board getList Start");
 		List<BoardVo> list = new ArrayList<BoardVo>();
@@ -191,10 +219,11 @@ public class BoardDao {
 					+ "a.member_no,"
 					+ "b.name as member_name,"
 					+ "a.view_cnt,"
+					+ "a.depth,"
 					+ "to_char(a.reg_date, 'yyyy-mm-dd hh:mi:ss') "
 					+ "FROM board a, member b "
 					+ "WHERE a.member_no = b.no "
-					+ "ORDER BY a.reg_date desc";
+					+ "ORDER BY a.group_no desc , a.order_no asc";
 
 			rs = stmt.executeQuery(sql);
 			
@@ -204,7 +233,8 @@ public class BoardDao {
 				int member_no = rs.getInt(3);
 				String member_name = rs.getString(4);
 				int view_cnt = rs.getInt(5);
-				String reg_date = rs.getString(6);
+				int depth = rs.getInt(6);
+				String reg_date = rs.getString(7);
 				
 				BoardVo vo = new BoardVo();
 				
@@ -213,6 +243,7 @@ public class BoardDao {
 				vo.setMember_no(member_no);
 				vo.setMember_name(member_name);
 				vo.setView_cnt(view_cnt);
+				vo.setDepth(depth);
 				vo.setReg_date(reg_date);
 
 				list.add(vo);
@@ -242,7 +273,6 @@ public class BoardDao {
 	}
 
 	
-	//TODO
 	public List<BoardVo> getSearch(String kwd) {
 		System.out.println("::board getSearch Start");
 		

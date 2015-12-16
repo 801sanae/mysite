@@ -82,7 +82,7 @@ public class BoardVo {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
-	}
+	} 
 	
 	public void setGroup_no(int group_no) {
 		this.group_no = group_no;

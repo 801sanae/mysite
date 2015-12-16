@@ -46,15 +46,16 @@
 								<tr>
 									<td>${cnt-status.index}</td>
 									
- 									<td><a href="board?a=view&no=${board.no}">${board.title }</a></td> 
-
-<%-- 									<td>${listData.firstItemIndex - status.index }</td>
-									<td class="title" style="padding-left:${( vo.depth - 1 )*10 }px">
-										<c:if test="${vo.depth > 1 }">
-											<img src="${pageContext.request.contextPath }/assets/images/ico-reply.gif">
+<%--  									<td><a href="board?a=view&no=${board.no}">${board.title }</a></td>
+ --%>
+								
+									<td class="title" style="padding-left:${( board.depth )*10 }px">
+										<c:if test="${board.depth > 0 }">
+											<img src="${pageContext.request.contextPath}/assets/images/ico-reply.gif">
 										</c:if> 
-										<a href="${pageContext.request.contextPath }/board/view/${vo.no }">${vo.title }</a>
-									</td> --%>
+										
+										<a href="board?a=view&no=${board.no}">${board.title }</a>
+									</td> 
 
 									<td>${board.member_name }</td>
 									<td>${board.view_cnt }</td>
@@ -113,7 +114,7 @@
 				<c:choose>
 					<c:when test="${!empty authUser }">
 						<div class="bottom">
-							<a href="board?a=writeform" id="new-book">글쓰기</a>
+							<a href="board?a=writeform&group_no=0&order_no=0&depth=0" id="new-book">글쓰기</a>
 						</div>
 					</c:when>
 					<c:otherwise>

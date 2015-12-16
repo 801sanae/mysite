@@ -21,6 +21,10 @@ public class WriteAction implements Action {
 		String content = request.getParameter("content");
 		UserVo memberVo = (UserVo) request.getSession(true).getAttribute("authUser");
 		
+		int group_no = Integer.parseInt(request.getParameter("group_no"));
+		int order_no = Integer.parseInt(request.getParameter("order_no"));
+		int depth = Integer.parseInt(request.getParameter("depth"));
+		
 		BoardVo vo =new BoardVo();
 		BoardDao dao = new BoardDao();
 		
@@ -28,8 +32,11 @@ public class WriteAction implements Action {
 		vo.setContents(content);
 		vo.setMember_no(memberVo.getNo());
 		vo.setUserVo(memberVo);
-		
+		vo.setGroup_no(group_no);
+		vo.setOrder_no(order_no);
+		vo.setDepth(depth);
 		System.out.println("WriteAction:" + vo);
+		
 		
 		dao.insert(vo);
 

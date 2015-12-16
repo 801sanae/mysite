@@ -19,8 +19,10 @@
 		
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="/mysite/board">
-					<input type = "hidden" name = "a" value="write">
+				<form class="board-form" method="post" action="/mysite/board?a=write">
+					<input type = "hidden" name = "group_no" value="${board.group_no }">
+					<input type = "hidden" name = "order_no" value="${board.order_no }">
+					<input type = "hidden" name = "depth" value="${board.depth }">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>

@@ -13,6 +13,7 @@ public class BoardVo {
 	private int group_no;
 	private int order_no;
 	private int depth;
+	private String filepath;
 	
 	public int getNo() {
 		return no;
@@ -55,6 +56,10 @@ public class BoardVo {
 		return depth;
 	}
 	
+	public String getFilepath() {
+		return filepath;
+	}
+	
 	public void setNo(int no) {
 		this.no = no;
 	}
@@ -95,11 +100,16 @@ public class BoardVo {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
+	
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", title=" + title + ", contents=" + contents + ", view_cnt=" + view_cnt
 				+ ", member_no=" + member_no + ", member_name=" + member_name + ", userVo=" + userVo + ", reg_date="
-				+ reg_date + ", group_no=" + group_no + ", order_no=" + order_no + ", depth=" + depth + "]";
+				+ reg_date + ", group_no=" + group_no + ", order_no=" + order_no + ", depth=" + depth + ", filepath="
+				+ filepath + "]";
 	}
-	
+
 }

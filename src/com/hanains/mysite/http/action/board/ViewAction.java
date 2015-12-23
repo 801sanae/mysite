@@ -20,6 +20,9 @@ public class ViewAction implements Action {
 
 		BoardDao dao = new BoardDao();
 		BoardVo board = dao.getView(Integer.parseInt(request.getParameter("no")));
+		System.out.println("viewAction = "+board);
+		dao.updateViewCnt(board);
+		
 		UserVo memberVo = (UserVo) request.getSession(true).getAttribute("authUser");
 		
 		System.out.println("::"+memberVo);

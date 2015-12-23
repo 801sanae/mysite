@@ -18,7 +18,7 @@ public class WriteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
-		String content = request.getParameter("content");
+		String content = request.getParameter("contents");
 		UserVo memberVo = (UserVo) request.getSession(true).getAttribute("authUser");
 		
 		int group_no = Integer.parseInt(request.getParameter("group_no"));

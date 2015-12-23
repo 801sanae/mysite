@@ -34,7 +34,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content">${board.contents}</textarea>
+								<textarea id="contents" name="contents">${board.contents}</textarea>
 							</td>
 						</tr>
 					</table>

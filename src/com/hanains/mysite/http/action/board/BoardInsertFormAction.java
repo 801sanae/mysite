@@ -21,7 +21,6 @@ public class BoardInsertFormAction implements Action {
 		int order_no=Integer.parseInt(request.getParameter("order_no"));
 		int depth=Integer.parseInt(request.getParameter("depth"));
 		
-		BoardDao dao = new BoardDao();
 		BoardVo board= new BoardVo();
 		
 		System.out.println(group_no+":"+order_no+":"+depth);
